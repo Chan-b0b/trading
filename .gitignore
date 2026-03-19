@@ -1,0 +1,49 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+api_keys.txt
+.env
+*.key
+credentials.json
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.Python
+
+# ── Virtual environment ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+bin/
+lib/
+lib64/
+include/
+share/
+pyvenv.cfg
+
+# ── btcbot data cache (candle Parquet files, can be re-fetched) ───────────────
+btcbot/data/cache/
+
+# ── btcbot model checkpoints ──────────────────────────────────────────────────
+btcbot/checkpoints/
+
+# ── btcbot logs ───────────────────────────────────────────────────────────────
+btcbot/logs/
+
+# ── General logs ─────────────────────────────────────────────────────────────
+*.log
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

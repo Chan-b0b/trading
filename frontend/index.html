@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Crypto Price Live</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;display:flex;height:100vh;align-items:center;justify-content:center;background:#f5f5f7}
+    .card{background:white;padding:24px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08);text-align:center}
+    .price{font-size:48px;font-weight:700}
+    .symbol{color:#666;margin-bottom:8px}
+    .ts{color:#999;font-size:12px;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="symbol" id="symbol">--</div>
+    <div class="price" id="price">--</div>
+    <div class="ts" id="ts">--</div>
+    <canvas id="chart" width="600" height="200" style="margin-top:12px"></canvas>
+  </div>
+  <script type="module">
+    // load Chart.js dynamically
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    document.head.appendChild(script);
+    await new Promise((res)=>{script.onload = res});
+
+    const symbolEl = document.getElementById('symbol');
+    const priceEl = document.getElementById('price');
+    const tsEl = document.getElementById('ts');
+    const chartEl = document.getElementById('chart');
+
+    let chart = null;
+    function createChart(labels, dataPoints, symbolLabel){
+      const ctx = chartEl.getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: symbolLabel || '',
+            data: dataPoints,
+            borderColor: '#1976d2',
+            backgroundColor: 'rgba(25,118,210,0.08)',
+            fill: true,
+            tension: 0.15,
+          }]
+        },
+        options: {
+          animation: false,
+          scales: {
+            x: { display: true },
+            y: { display: true }
+          }
+        }
+      });
+    }
+
+    function update(data){
+      if(!data) return;
+      symbolEl.textContent = data.symbol || '';
+      priceEl.textContent = data.price !== null ? Number(data.price).toLocaleString() : '--';
+      tsEl.textContent = data.ts ? new Date(data.ts*1000).toLocaleString() : '';
+      // push to chart
+      if(chart){
+        const label = data.ts ? new Date(data.ts*1000).toLocaleTimeString() : '';
+        const val = data.price !== null ? Number(data.price) : null;
+        if(val !== null){
+          chart.data.labels.push(label);
+          chart.data.datasets[0].data.push(val);
+          // keep last 200 points
+          if(chart.data.labels.length > 200){
+            chart.data.labels.shift();
+            chart.data.datasets[0].data.shift();
+          }
+          chart.update();
+        }
+      }
+    }
+
+    const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const ws = new WebSocket(wsProtocol + '//' + location.host + '/ws');
+
+    ws.addEventListener('message', e=>{
+      try{ const d = JSON.parse(e.data); update(d); } catch(e){ console.warn(e); }
+    });
+
+    ws.addEventListener('open', ()=> console.log('ws open'));
+    ws.addEventListener('close', ()=> console.log('ws closed'));
+    ws.addEventListener('error', ()=> console.log('ws error'));
+
+    // initial history load -> then websocket will append
+    async function loadHistory(){
+      try{
+        const r = await fetch('/history');
+        const arr = await r.json();
+        const labels = arr.map(x=> new Date(x.ts*1000).toLocaleTimeString());
+        const dataPoints = arr.map(x=> x.price);
+        const symbolLabel = arr.length ? (arr[arr.length-1].symbol || '') : '';
+        createChart(labels, dataPoints, symbolLabel);
+        if(arr.length){
+          // set displayed current
+          const last = arr[arr.length-1];
+          update({symbol: last.symbol || '', price: last.price, ts: last.ts});
+        }
+      }catch(e){
+        // if history fails, create empty chart
+        createChart([], [], '');
+      }
+    }
+    loadHistory();
+  </script>
+</body>
+</html>
