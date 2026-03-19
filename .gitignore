@@ -16,7 +16,6 @@ build/
 # ── Virtual environment ───────────────────────────────────────────────────────
 .venv/
 venv/
-env/
 bin/
 lib/
 lib64/
