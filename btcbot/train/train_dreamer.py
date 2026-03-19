@@ -44,8 +44,8 @@ from btcbot.data.fetch_fear_greed import fetch_fear_greed
 from btcbot.features.make_features import compute_features, build_observation
 from btcbot.env.btc_env         import BTCTradingEnv
 
-from models.dreamer_agent import DreamerV3Agent
-from models.mcts          import MCTS
+from ..models.dreamer_agent import DreamerV3Agent
+from ..models.mcts          import MCTS
 
 logging.basicConfig(
     level=logging.INFO,

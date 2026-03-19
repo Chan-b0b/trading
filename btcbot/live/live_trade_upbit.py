@@ -52,8 +52,8 @@ from btcbot.data.fetch_macro      import fetch_macro
 from btcbot.data.fetch_fear_greed import fetch_fear_greed, get_current_fng
 from btcbot.features.make_features import compute_features, build_observation
 
-from models.dreamer_agent import DreamerV3Agent
-from models.mcts          import MCTS
+from ..models.dreamer_agent import DreamerV3Agent
+from ..models.mcts          import MCTS
 
 try:
     import pyupbit

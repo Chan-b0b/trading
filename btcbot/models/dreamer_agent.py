@@ -15,7 +15,7 @@ from torch.optim import Adam  # Use Adam instead of AdamW to avoid transformers 
 import numpy as np
 from collections import deque
 
-from models.dreamer_components import (
+from .dreamer_components import (
     Encoder, RSSM, Decoder, RewardPredictor, Actor, Critic,
     symlog, symexp
 )
