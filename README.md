@@ -28,3 +28,21 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 Notes
 - The polling interval is controlled by `POLL_INTERVAL` in `backend/main.py`.
 - Change the symbol by editing `SYMBOL` in `backend/main.py` (e.g., `ETHUSDT`).
+
+Short-timeframe BTC strategy backtest
+
+This project also includes a rule-based KRW-BTC 5-30 minute strategy backtest.
+It uses 5-minute candles for execution, 15-minute candles for momentum/trend,
+and 1-hour candles as a broader trend filter.
+
+```bash
+python -m btcbot.backtest.short_timeframe_strategy --candles 5000 --plot
+```
+
+To search a small parameter grid and then run the best result:
+
+```bash
+python -m btcbot.backtest.short_timeframe_strategy --candles 8000 --optimize --plot
+```
+
+CSV results and charts are saved under `btcbot/logs/short_timeframe_backtests/`.
