@@ -2,6 +2,9 @@
 api_keys.txt
 *.key
 credentials.json
+toss_api.txt
+kakao_api.txt
+.env
 
 # ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
@@ -24,13 +27,13 @@ share/
 pyvenv.cfg
 
 # ── btcbot data cache (candle Parquet files, can be re-fetched) ───────────────
-btcbot/data/cache/
+**/btcbot/data/cache/
 
 # ── btcbot model checkpoints ──────────────────────────────────────────────────
-btcbot/checkpoints/
+**/btcbot/checkpoints/
 
 # ── btcbot logs ───────────────────────────────────────────────────────────────
-btcbot/logs/
+**/btcbot/logs/
 
 # ── General logs ─────────────────────────────────────────────────────────────
 *.log
@@ -45,3 +48,9 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# ── Reference repos (cloned separately) ───────────────────────────────────────
+repo/
+
+# ── Downloaded market data ────────────────────────────────────────────────────
+data/

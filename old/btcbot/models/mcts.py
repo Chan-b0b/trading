@@ -88,7 +88,7 @@ class MCTSNode:
 
                 # Predict immediate reward
                 state_next = agent.rssm.get_state(h_next, z_next)
-                from models.dreamer_components import symexp
+                from old.btcbot.models.dreamer_components import symexp
                 reward = symexp(agent.reward_predictor(state_next)).item()
 
             # Create child node
@@ -297,7 +297,7 @@ if __name__ == "__main__":
     # Create dummy agent
     import sys
     sys.path.insert(0, '..')
-    from models.dreamer_agent import DreamerV3Agent
+    from old.btcbot.models.dreamer_agent import DreamerV3Agent
 
     obs_dim = 64 * 11
     agent = DreamerV3Agent(obs_dim, action_dim=2, device='cpu')

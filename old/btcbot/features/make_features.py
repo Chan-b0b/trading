@@ -181,7 +181,7 @@ def compute_features(
 
     # ── Step 2: Macro features ────────────────────────────────────────────────
     if df_macro is not None and not df_macro.empty:
-        from btcbot.data.fetch_macro import align_macro
+        from old.btcbot.data.fetch_macro import align_macro
         df_anchor_with_macro = align_macro(df_anchor, df_macro)
         for col in ["vix_close", "dxy_ret", "spx_ret"]:
             if col in df_anchor_with_macro.columns:
@@ -202,7 +202,7 @@ def compute_features(
 
     # ── Step 3: Fear & Greed ──────────────────────────────────────────────────
     if df_fng is not None and not df_fng.empty:
-        from btcbot.data.fetch_fear_greed import align_fear_greed
+        from old.btcbot.data.fetch_fear_greed import align_fear_greed
         df_anchor_with_fng = align_fear_greed(df_anchor, df_fng)
         combined["fng_norm"] = df_anchor_with_fng["fng_norm"].values
     else:
@@ -253,9 +253,9 @@ def build_observation(feats: np.ndarray, step: int, window: int) -> np.ndarray:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
-    from btcbot.data.fetch_upbit import fetch_all_timeframes
-    from btcbot.data.fetch_macro import fetch_macro
-    from btcbot.data.fetch_fear_greed import fetch_fear_greed
+    from old.btcbot.data.fetch_upbit import fetch_all_timeframes
+    from old.btcbot.data.fetch_macro import fetch_macro
+    from old.btcbot.data.fetch_fear_greed import fetch_fear_greed
 
     print("Fetching candles …")
     data = fetch_all_timeframes(n_candles=500)

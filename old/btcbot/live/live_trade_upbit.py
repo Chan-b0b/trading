@@ -42,15 +42,15 @@ import numpy as np
 # ── Add tradingbot to Python path ─────────────────────────────────────────────
 sys.path.insert(0, str(Path(__file__).parents[3] / "tradingbot"))
 
-from btcbot.config import (
+from old.btcbot.config import (
     UPBIT_ACCESS_KEY, UPBIT_SECRET_KEY,
     SYMBOL, LIVE, MCTS as MCTS_CFG, DREAMER, WINDOW,
     MODEL_DIR, LOG_DIR,
 )
-from btcbot.data.fetch_upbit      import fetch_all_timeframes
-from btcbot.data.fetch_macro      import fetch_macro
-from btcbot.data.fetch_fear_greed import fetch_fear_greed, get_current_fng
-from btcbot.features.make_features import compute_features, build_observation
+from old.btcbot.data.fetch_upbit      import fetch_all_timeframes
+from old.btcbot.data.fetch_macro      import fetch_macro
+from old.btcbot.data.fetch_fear_greed import fetch_fear_greed, get_current_fng
+from old.btcbot.features.make_features import compute_features, build_observation
 
 from ..models.dreamer_agent import DreamerV3Agent
 from ..models.mcts          import MCTS

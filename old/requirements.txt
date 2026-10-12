@@ -1,0 +1,32 @@
+# ── Existing API / web server deps ───────────────────────────────────────────
+fastapi
+uvicorn[standard]
+websockets
+PyJWT
+websocket-client
+httpx
+
+# ── BTC Trading Bot (btcbot) ──────────────────────────────────────────────────
+
+# Deep Reinforcement Learning (DreamerV3 / MCTS imported from ../tradingbot)
+torch>=2.0.0
+gymnasium>=0.29.0
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Upbit API
+pyupbit>=0.2.33
+
+# Data fetching
+yfinance>=0.2.0      # macro: VIX, DXY, SPX
+requests>=2.31.0     # Fear & Greed Index (Alternative.me)
+
+# Storage
+pyarrow>=14.0.0      # Parquet cache for candle data
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+matplotlib>=3.8.0

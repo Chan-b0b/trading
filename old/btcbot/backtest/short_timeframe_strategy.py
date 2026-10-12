@@ -27,8 +27,8 @@ from typing import Iterable
 import numpy as np
 import pandas as pd
 
-from btcbot.config import BACKTEST, LOG_DIR, SYMBOL
-from btcbot.data.fetch_upbit import fetch_all_timeframes
+from old.btcbot.config import BACKTEST, LOG_DIR, SYMBOL
+from old.btcbot.data.fetch_upbit import fetch_all_timeframes
 
 logger = logging.getLogger(__name__)
 

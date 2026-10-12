@@ -34,15 +34,15 @@ import numpy as np
 # ── Add tradingbot to Python path so we can import DreamerV3 ─────────────────
 sys.path.insert(0, str(Path(__file__).parents[3] / "tradingbot"))
 
-from btcbot.config import (
+from old.btcbot.config import (
     DATA_DIR, MODEL_DIR, LOG_DIR,
     DREAMER, MCTS as MCTS_CFG, TRAIN, WINDOW,
 )
-from btcbot.data.fetch_upbit    import fetch_all_timeframes
-from btcbot.data.fetch_macro    import fetch_macro
-from btcbot.data.fetch_fear_greed import fetch_fear_greed
-from btcbot.features.make_features import compute_features, build_observation
-from btcbot.env.btc_env         import BTCTradingEnv
+from old.btcbot.data.fetch_upbit    import fetch_all_timeframes
+from old.btcbot.data.fetch_macro    import fetch_macro
+from old.btcbot.data.fetch_fear_greed import fetch_fear_greed
+from old.btcbot.features.make_features import compute_features, build_observation
+from old.btcbot.env.btc_env         import BTCTradingEnv
 
 from ..models.dreamer_agent import DreamerV3Agent
 from ..models.mcts          import MCTS
@@ -199,7 +199,7 @@ def train(
 
     # ── Quick backtest on the last 20 % of data ───────────────────────────────
     logger.info("── Quick out-of-sample backtest ─────────────────────────")
-    from btcbot.backtest.backtest_engine import BTCBacktester
+    from old.btcbot.backtest.backtest_engine import BTCBacktester
     split = int(T * 0.8)
     bt = BTCBacktester(agent=agent, feats=feats, rets=rets, df=df_anchor, window=WINDOW)
     results = bt.run(start=split)
